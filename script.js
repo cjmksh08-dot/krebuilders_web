@@ -1,0 +1,10 @@
+const menuBtn=document.getElementById('menuBtn'),nav=document.getElementById('nav');
+menuBtn?.addEventListener('click',()=>nav.classList.toggle('open'));
+document.querySelectorAll('nav a').forEach(a=>a.addEventListener('click',()=>nav.classList.remove('open')));
+const observer=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')}),{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+const lb=document.getElementById('lightbox'),lbImg=document.getElementById('lightboxImg');
+document.querySelectorAll('.floor-card').forEach(card=>card.addEventListener('click',()=>{lbImg.src=card.dataset.full;lb.classList.add('show')}));
+document.getElementById('closeLightbox').addEventListener('click',()=>lb.classList.remove('show'));
+lb.addEventListener('click',e=>{if(e.target===lb)lb.classList.remove('show')});
+document.getElementById('enquiryForm').addEventListener('submit',e=>{e.preventDefault();const d=new FormData(e.target);const text=`Hello KRE Builders, I would like to enquire.%0A%0AName: ${encodeURIComponent(d.get('name'))}%0AMobile: ${encodeURIComponent(d.get('phone'))}%0AProject: ${encodeURIComponent(d.get('project')||'Not specified')}%0AMessage: ${encodeURIComponent(d.get('message')||'')}`;window.open('https://wa.me/917305360888?text='+text,'_blank');});
